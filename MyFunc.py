@@ -15,8 +15,8 @@ pandarallel.initialize(progress_bar=False,nb_workers=2)
 def get_post_code(longitude,latitude,data_location):
     latitude=float(latitude)
     longitude=float(longitude)
-    # if latitude<=6 and latitude>=-11 and longitude<=95 and longitude>=141 : pass
-    # else : latitude,longitude=longitude,latitude
+    if latitude<=6 and latitude>=-11 and longitude>=95 and longitude<=141 : pass
+    else : latitude,longitude=longitude,latitude
 
     target = [latitude,longitude]
     list_coordinate = np.c_[data_location.latitude, data_location.longitude]
