@@ -10,7 +10,7 @@ import geopy.distance
 from scipy.spatial import cKDTree
 
 from pandarallel import pandarallel
-pandarallel.initialize(progress_bar=False,nb_workers=2)
+pandarallel.initialize(progress_bar=True,nb_workers=2)
 
 def get_post_code(longitude,latitude,data_location):
     latitude=float(latitude)
