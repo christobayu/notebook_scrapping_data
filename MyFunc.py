@@ -230,7 +230,7 @@ def get_include_restaurant_mall_type1(private_key):
     gc = gs.service_account(filename=f'{private_key}')
     sheet = gc.open_by_url('https://docs.google.com/spreadsheets/d/1xj4IXNc0qHtpPhMauK7XiYKxCLnaIqDjxJjV4ttqPkk/edit?usp=sharing')
 
-    worksheet = sheet.worksheet('Type 1 Mall')
+    worksheet = sheet.worksheet('Batch 1 Details')
 
     outlet_in_mall_type1 = pd.DataFrame(worksheet.get_all_values())
     outlet_in_mall_type1.columns=outlet_in_mall_type1.iloc[0]
