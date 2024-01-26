@@ -9,6 +9,8 @@ import gspread as gs
 import geopy.distance
 from scipy.spatial import cKDTree
 
+import re
+
 from pandarallel import pandarallel
 pandarallel.initialize(progress_bar=True,nb_workers=2)
 
@@ -60,6 +62,16 @@ def get_hot_area(latitude,longitude,hot_area):
     else:
         return None
     
+def remove_google_code_address(input_address):
+    regexp1 = re.compile('^[a-zA-Z0-9]{4}[+][a-zA-Z0-9]{3}[,](.*)')
+    regexp2 = re.compile('^[a-zA-Z0-9]{4}[+][a-zA-Z0-9]{3}')
+
+    if regexp1.search(input_address):
+        input_address=re.sub('^[a-zA-Z0-9]{4}[+][a-zA-Z0-9]{3}[,]', '', input_address).strip()
+    elif regexp2.search(input_address):
+        input_address=re.sub('^[a-zA-Z0-9]{4}[+][a-zA-Z0-9]{3}', '', input_address).strip()
+    return input_address
+
 def cleaning_data_merchants(data):
     data.rename(columns={'query':'keyword'},inplace=True)
     data.name=data.name.str.title()
@@ -71,6 +83,8 @@ def cleaning_data_merchants(data):
     data.keyword=data.keyword.str.lower()
     data.subtypes=data.subtypes.str.lower()
     data.category=data.category.str.lower()
+
+    data.full_address=data.full_address.parallel_apply(remove_google_code_address)
     
     new_columns=[]
     for column in data.columns:
