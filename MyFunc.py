@@ -63,6 +63,7 @@ def get_hot_area(latitude,longitude,hot_area):
         return None
     
 def remove_google_code_address(input_address):
+    input_address=str(input_address)
     regexp1 = re.compile('^[a-zA-Z0-9]{4}[+][a-zA-Z0-9]{3}[,](.*)')
     regexp2 = re.compile('^[a-zA-Z0-9]{4}[+][a-zA-Z0-9]{3}')
 
